@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, user-scalable=0" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+	<title>Title</title>
+    <!--
+    <link rel="stylesheet" href="/static/css/main.css"/>
+
+    <script src="/static/js/pieces.js"></script>
+
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/multy1.js"></script>
+
+    <script src="http://cdn.socket.io/socket.io-1.4.5.js"></script>
+    -->
+	
+    <script src="http://192.168.1.66:8888/socket.io/socket.io.js"></script>
+    <script>
+        window.onload = Init;
+		
+        function Init(){
+            leftC = document.getElementById('first');
+			rightC = document.getElementById('second');
+			leftC.style.background = 'rgba(100,100,0,0.3)';
+			rightC.style.background = 'rgba(0,100,0,0.3)';
+			leftCtx = leftC.getContext('2d');
+			rigtCtx = rightC.getContext('2d');
+			connect();
+			document.getElementById('transfer_img').onclick = sendImg;
+		};
+        function connect(){
+            socket = io.connect('http://localhost:8888');
+			socket.on('recvImg', function(img){
+				var tmp = new Image();
+				tmp.src = img;
+				setTimeout(function(){
+					leftCtx.drawImage(tmp,0,0, 200,200);
+				},100);
+			});
+		}
+
+        function sendImg(){
+			socket.emit('sendImg', rightC.toDataURL());
+		}
+    </script>
+</head>
+<body>
+<div id="content">
+    <canvas id="first" width="200" height="200"></canvas>
+    <canvas id="second" width="200" height="200"></canvas>
+    <button id="transfer_img">Transfer image</button>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Page Title</title>
+    <script>
+        window.onload = function(){
+            setTimeout(go, 1000);
+        }
+        
+        function go() {
+            var t = InfoFactory();
+            t.createInfo();
+            t.showMSG('player refused');
+            setTimeout(function(){
+                t.killInfo();    
+            }, 2000);
+        }
+        
+        function InfoFactory() {
+            var temp = {};
+            temp.createInfo = function(){
+                this.modal = document.createElement('div');
+                this.modal.style.background = 'rgba(100,100,100,0.4)';
+                this.modal.style.width = '100%';
+                this.modal.style.height = '100%';
+                this.modal.style.display = 'block';
+                this.modal.style.position = 'fixed';
+                this.modal.style.left = 0;
+                this.modal.style.top = 0;
+                this.modal.style.textAlign = 'center';
+            }
+            
+            temp.showMSG = function(msg){
+                this.inModal = document.createElement('div');
+                this.inModal.style.paddingTop = '3vh';
+                this.inModal.style.marginTop = '10vh';
+                this.inModal.style.marginRight = 'auto';
+                this.inModal.style.marginLeft = 'auto';
+                this.inModal.style.width = '50%';
+                this.inModal.style.paddingBottom = '3vh';
+
+                this.inModal.style.background = 'rgb(250,250,250)';
+                this.m = document.createElement('p');
+                this.m.innerHTML = msg;
+                this.modal.appendChild(this.inModal);
+                this.inModal.appendChild(this.m);
+                document.body.appendChild(this.modal);
+            }
+            
+            temp.killInfo = function(){
+                this.modal.parentNode.removeChild(this.modal);
+            }
+            return temp;
+        }
+        
+
+        
+        
+    </script>
+</head>
+
+<body>
+
+    <p onclick='alert("1");'>1</p>
+    <p onclick='alert("2")'>2</p>
+
+</body>
+</html>

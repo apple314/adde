@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Page Title</title>
+    <script>
+        window.onload= function(){
+            navigator.getUserMedia = navigator.getUserMedia ||
+                navigator.webkitGetUserMedia || navigator.mozGetUserMedia;
+        
+            var options = {audio: false, video: true};
+            var video = document.querySelector('video');
+            navigator.getUserMedia(options, success, fail);
+            
+            function success(stream) {
+                if (window.URL) {
+                    video.src = window.URL.createObjectURL(stream);
+                } else {
+                    video.src = stream;
+                }
+            }
+            
+            function fail(e) {
+                alert(e);
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <video autoplay=''></video>
+
+
+</body>
+</html>

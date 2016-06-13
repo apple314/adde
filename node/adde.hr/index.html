@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Page Title</title>
+    <script src='/socket.io/socket.io.js'></script>
+    <script>
+        window.onload = function(){
+            var socket = io.connect('http://192.168.1.66:7777');
+            socket.on('connect', function(){
+                alert('Conn');    
+            });
+        };
+    </script>
+</head>
+
+<body>
+
+    <p>Hello</p>
+
+</body>
+</html>

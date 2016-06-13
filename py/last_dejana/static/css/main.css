@@ -1,0 +1,73 @@
+#myModal {
+     position: absolute;
+     left: 0px;
+     top: 0px;
+     width:100%;
+     height:100%;
+     text-align:center;
+     z-index: 1000;
+     background-color: rgba(0,0,0,0.5);
+}
+
+#modalText {
+    background-color : rgba(255,255,255,0.7);
+    min-width: 10vw;
+    max-width: 60%;
+    min-height: 20vh;
+    margin-left:auto;
+    margin-right:auto;
+    margin-top:20vh;
+    padding:10vh;
+}
+
+* {margin: 0; padding: 0; }
+
+#content {width: 100%; height: 1400px; background: rgb(220,220,220);}
+
+#img_close{right:0px; position: absolute;cursor: pointer; z-index:2; width:1.5em;height:1.5em;
+background: rgb(0,0,0)}
+
+
+#gameStart { position: absolute; background: rgb(255,255,255);
+color: rgb(0,0,0);box-shadow: 4px 0px 15px #3d3d3d; border: solid 5px black;
+text-align: center;left:0;right:0;margin-left:auto;margin-right:auto;
+top:10px; min-height: 220px; font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+/*min-width:300px
+*/
+}
+
+#gameStartText {position: absolute; text-align: left; margin-left: 10px; font-style:bold;
+font-size: 1.5em;  	font-family: Helvetica Neue,Helvetica,Arial,sans-serif; }
+
+#play {font-size:1.7em ;font-weight: bold;cursor: pointer;}
+
+/* mplayer new */
+
+#mplay {font-size:1.7em ;font-weight: bold;cursor: pointer;}
+
+/*@ opponent div */
+#opponent {
+    position: absolute;
+    width: 27%;
+    /*
+    width:'128px';
+
+    height:'128px';
+    */
+    background: rgba(100,100,100,0.1);
+    top:10px;
+    }
+
+#wrapperLobby { box-shadow: 4px 0px 15px #3d3d3d; text-align: center;
+border: solid 5px black;width: 300px; position: relative; margin:0 auto;margin-top:10px; padding-bottom:10px;
+padding-top:0px; margin-left:auto; margin-right:auto;background: rgb(255,255,255);}
+
+/*promjena za close + style center + margin*/
+#wrapper {box-shadow: 4px 0px 15px #3d3d3d; text-align: center;
+border: solid 5px black;width: 300px; position: relative; margin:0 auto;margin-top:10px; padding-bottom:10px;
+padding-top:0px; margin-left:auto; margin-right:auto;background: rgb(255,255,255);}
+
+#nextPiece {width: 27%; width:'128px'; height:'128px'; position:relative;}
+
+#gameCanvas {width: 67%;  width:'320px' height:'512px'; position:relative;}
+
