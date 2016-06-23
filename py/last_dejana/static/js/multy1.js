@@ -133,7 +133,7 @@ function showLobby(){
 
     if (nickname){
         //@local testing
-        socket = io.connect('http://192.168.1.66:8888');
+        socket = io.connect('http://192.168.1.64:8888');
         //socket = io.connect('http://188.129.74.75:8888');
         socket.emit('newUser', nickname, isTaken);
     }
