@@ -180,6 +180,7 @@ function showLobby(){
 
 function multiClose(){
     console.log('Mclose');
+    isGameOver = true;
     //@test
     document.onkeydown = null;
     if (socket){

@@ -18,4 +18,5 @@ def modal():
     return  render_template('modal.html');
 
 if __name__ == "__main__":
-    app.run('',9999, True)
+    app.run('',9999, False)
+    

@@ -193,6 +193,7 @@ function gameOverClear(){
 	window.removeEventListener('orientationchange', test_me);
 	window.removeEventListener('resize', double_t);
     //@
+    isGameOver = true;
     multiClose();
     if (document.getElementById('wrapper')){
         alert('wrapper exists');
@@ -425,13 +426,9 @@ function update(){
 
 	}
 	else {
-        //@here
-		  //var nextpiece = document.getElementById('nextPiece');
-		  //var s_dims = nextpiece.getBoundingClientRect();
-		  //var s_ctx = nextpiece.getContext('2d');
-		  //s_ctx.clearRect(0,0,s_dims.width, s_dims.height);
 		//score on/off
-		//s_ctx.font = "20px Helvetica serif";
+		//@here score
+        //s_ctx.font = "20px Helvetica serif";
         //s_ctx.fillText("Score: "+curLines, 0,128);
         setTimeout(gameOverClear, 3000);
 	}
