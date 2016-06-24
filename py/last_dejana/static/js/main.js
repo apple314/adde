@@ -195,11 +195,9 @@ function gameOverClear(){
     //@
     multiClose();
     if (document.getElementById('wrapper')){
-        //alert('wrapper exists');
+        alert('wrapper exists');
         wrapper.parentNode.removeChild(wrapper);
         showInstuctions();
-        //document.getElementsByTagName('button')[0].disabled = true;
-
     }
     else {
         //alert('nowrapper');
@@ -329,7 +327,8 @@ function test_me(){
 }
 
 function getInput(e){
-	e.preventDefault();
+    //@here
+    e.preventDefault();
 	if (isGameOver != true){
 		switch(e.keyCode){
 			case 37: {
@@ -375,8 +374,7 @@ function getInput(e){
 }
 
 function PlacePreview(nextpiece){
-	if (isGameOver != true ){
-		
+	if (isGameOver !== true ){
 		nextctx = nextDiv.getContext('2d');
 		nextctx.clearRect(0,0,128,128);
 
@@ -427,10 +425,11 @@ function update(){
 
 	}
 	else {
-		var nextpiece = document.getElementById('nextPiece');
-		var s_dims = nextpiece.getBoundingClientRect();
-		var s_ctx = nextpiece.getContext('2d');
-		s_ctx.clearRect(0,0,s_dims.width, s_dims.height);
+        //@here
+		  //var nextpiece = document.getElementById('nextPiece');
+		  //var s_dims = nextpiece.getBoundingClientRect();
+		  //var s_ctx = nextpiece.getContext('2d');
+		  //s_ctx.clearRect(0,0,s_dims.width, s_dims.height);
 		//score on/off
 		//s_ctx.font = "20px Helvetica serif";
         //s_ctx.fillText("Score: "+curLines, 0,128);
@@ -530,7 +529,6 @@ function drawBoard(){
 }
 
 function drawPiece(p){
-
 	var drawX = p.gridx;
 	var drawY = p.gridy;
 	var state = p.curState;

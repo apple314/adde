@@ -243,6 +243,7 @@ ModalInput.prototype.getVal = function(){
 ModalInput.prototype.clearInput = function(){
     this.input.value = '';
     this.input.focus();
+    this.input.select();
 };
 ModalInput.prototype.addCallbacks = function(y_call, n_call){
     this.ok.onclick = y_call;
@@ -251,8 +252,6 @@ ModalInput.prototype.addCallbacks = function(y_call, n_call){
 ModalInput.prototype.timeoutKill = function(second){
     return setTimeout(this.kill.bind(this), second*1000);
 };
-
-
 ModalInput.prototype.show = function(){
     document.body.appendChild(this.root);
     this.input.focus();

@@ -41,7 +41,7 @@ function socket_setup(){
             if (myName != data[i]){
                 temp_p.onclick = function(){
                     socket.emit('challenge', this.innerHTML);
-                }
+                };
             }
             inst_div.appendChild(temp_p);
         }
@@ -128,36 +128,49 @@ function challengeUser(userNick){
 }
 
 function showLobby(){
-    mInput = new ModalInput();
-    mInput.show();
-    function ok(){
-        nickname = mInput.getVal();
-        if (nickname){
-        //@local testing
-        socket = io.connect('http://192.168.1.64:8888');
-        socket.emit('newUser', nickname, isTaken);
-        mInput.kill();
+    if (typeof mInput === 'undefined'){
+        mInput = new ModalInput();
+        mInput.show();
+        function ok(){
+            nickname = mInput.getVal();
+            if (nickname){
+            //@local testing
+            socket = io.connect('http://192.168.1.64:8888');
+            socket.emit('newUser', nickname, isTaken);
+            mInput.kill();
+            }
+            else {
+                mInput.setMsg('Must enter nickname');
+            } 
         }
-        else {
-            mInput.setMsg('Must enter nickname');
-        } 
+        function no(){mInput.kill();}
+        mInput.addCallbacks(ok,no);
+    }else {
+        delete mInput;
+        mInput = new ModalInput();
+        mInput.show();
+        mInput.clearInput();
+        function ok(){
+            nickname = mInput.getVal();
+            if (nickname){
+            //@local testing
+            socket = io.connect('http://192.168.1.64:8888');
+            socket.emit('newUser', nickname, isTaken);
+            mInput.kill();
+            }
+            else {
+                mInput.setMsg('Must enter nickname');
+            } 
+        }
+        function no(){mInput.kill();}
+        mInput.addCallbacks(ok,no);
     }
-    function no(){mInput.kill();}
-    mInput.addCallbacks(ok,no);
-    //var nickname = prompt('Enter nickname: ');
-    //if (nickname){
-    //    //@local testing
-    //    socket = io.connect('http://192.168.1.64:8888');
-    //    //socket = io.connect('http://188.129.74.75:8888');
-    //    socket.emit('newUser', nickname, isTaken);
-    //}
-    //else {
-    //    alert('Must enter nickname');
-    //}
 }
 
 function multiClose(){
     console.log('Mclose');
+    //@test
+    document.onkeydown = null;
     if (socket){
         socket.disconnect();
     }

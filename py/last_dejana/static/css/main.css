@@ -40,9 +40,10 @@ padding-top:0px; margin-left:auto; margin-right:auto;background: rgb(255,255,255
 #gameCanvas {width: 67%;  width:'320px' height:'512px'; position:relative;}
 
 .root {position: absolute; background: rgba(20,20,20,0.7); width:100%;
-    height: 100%; text-align: center; left: 0; top:0;
+    height: 100%; text-align: center; left: 0; top:0; z-index: 100;
 }
 .textContainer {position: relative; margin: 20vh auto;
     background: rgba(250,250,250,0.9); width: 30%; border-radius: 5%;
-    overflow: hidden; padding: 20px;
+    overflow: hidden; padding: 20px;z-index: 100;
 }
+#in_nickname {z-index: 999;}
