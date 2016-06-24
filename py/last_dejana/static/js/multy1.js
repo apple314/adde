@@ -88,7 +88,8 @@ function socket_setup(){
     socket.on('Start', function(){
         isPlaying = true;
         createWorld();
-        img_close.onclick = multiClose;
+        //@here
+        //img_close.onclick = multiClose;
         opponent = document.getElementById('opponent');
         opCtx = opponent.getContext('2d');
         tmp_img = new Image();
@@ -180,6 +181,7 @@ function showLobby(){
 
 function multiClose(){
     console.log('Mclose');
+    //@h
     isGameOver = true;
     //@test
     document.onkeydown = null;
@@ -189,21 +191,17 @@ function multiClose(){
     if (document.getElementById('wrapper')){
         var w = document.getElementById('wrapper');
         w.parentNode.removeChild(w);
-        showInstuctions();
         isPlaying = false;
+        showInstuctions();
     }
     else {
         var w = document.getElementById('gameStart');
         w.parentNode.removeChild(w);
-        showInstuctions();
         isPlaying = false;
+        showInstuctions();
     }
 }
-/*
-function clearCustomPrompt(modal){
-    modal.parentNode.removeChild(modal);
-}
-*/
+
 //send gamedata to opponent
 function emitGameData(gData){
     if (socket && isPlaying){

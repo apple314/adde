@@ -192,11 +192,11 @@ function gameOverClear(){
 	html.removeEventListener('touchend', touchEndHandler);
 	window.removeEventListener('orientationchange', test_me);
 	window.removeEventListener('resize', double_t);
-    //@
-    isGameOver = true;
+    //@hh
+    //isGameOver = true;
     multiClose();
     if (document.getElementById('wrapper')){
-        alert('wrapper exists');
+        //alert('wrapper exists');
         wrapper.parentNode.removeChild(wrapper);
         showInstuctions();
     }
@@ -411,7 +411,7 @@ function update(){
 	drawPiece(curPiece);
 	//place
 	PlacePreview(nextPiece);
-	if (isGameOver == false){
+	if (isGameOver === false){
 		//@test
 		//send image
 		if (typeof(counter_0) !== 'undefined' ){
@@ -422,7 +422,8 @@ function update(){
                 counter_0++;
             }
         }
-		requestAnimationFrame(update);
+        //@h
+		rId = requestAnimationFrame(update);
 
 	}
 	else {
@@ -430,7 +431,10 @@ function update(){
 		//@here score
         //s_ctx.font = "20px Helvetica serif";
         //s_ctx.fillText("Score: "+curLines, 0,128);
-        setTimeout(gameOverClear, 3000);
+        //@
+        window.cancelAnimationFrame(rId);
+        console.log(curLines);
+        //setTimeout(gameOverClear, 3000);
 	}
 	
 }
@@ -470,8 +474,11 @@ function checkLines(){
 			killrow(r);
 			curLines++;
 			//@emit row break
-			opponent_add();
-			//keep score
+            //@here
+			if (typeof socket !== 'undefined'){
+                opponent_add();    
+            }
+            //keep score
 			//scorePosition.innerHTML = curLines;
 		}
 	}
