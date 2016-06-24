@@ -128,18 +128,32 @@ function challengeUser(userNick){
 }
 
 function showLobby(){
-
-    var nickname = prompt('Enter nickname: ');
-
-    if (nickname){
+    mInput = new ModalInput();
+    mInput.show();
+    function ok(){
+        nickname = mInput.getVal();
+        if (nickname){
         //@local testing
         socket = io.connect('http://192.168.1.64:8888');
-        //socket = io.connect('http://188.129.74.75:8888');
         socket.emit('newUser', nickname, isTaken);
+        mInput.kill();
+        }
+        else {
+            mInput.setMsg('Must enter nickname');
+        } 
     }
-    else {
-        alert('Must enter nickname');
-    }
+    function no(){mInput.kill();}
+    mInput.addCallbacks(ok,no);
+    //var nickname = prompt('Enter nickname: ');
+    //if (nickname){
+    //    //@local testing
+    //    socket = io.connect('http://192.168.1.64:8888');
+    //    //socket = io.connect('http://188.129.74.75:8888');
+    //    socket.emit('newUser', nickname, isTaken);
+    //}
+    //else {
+    //    alert('Must enter nickname');
+    //}
 }
 
 function multiClose(){

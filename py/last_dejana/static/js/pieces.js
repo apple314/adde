@@ -189,3 +189,80 @@ function ReverseZPiece()
 	this.gridy = -2;
 }
 
+
+function Modal(){
+    this.root = document.createElement('div');
+    this.root.className = 'root';
+    
+    this.textContainer = document.createElement('div');
+    this.textContainer.className = 'textContainer';
+    this.textContainer.style.textAlign = 'center';
+    this.root.appendChild(this.textContainer);
+    
+    this.msg = document.createElement('p');
+    this.msg.textContent = 'All is well';
+    this.textContainer.appendChild(this.msg);
+    this.setMsg = function(msg){
+        this.msg.textContent = msg;             
+    };
+}
+Modal.prototype.kill = function(){
+    this.root.parentNode.removeChild(this.root);  
+};
+Modal.prototype.show = function(){
+    document.body.appendChild(this.root);    
+};
+
+
+function ModalInput(){
+    Modal.call(this);
+    this.msg.textContent = 'Enter name';
+    this.input  = document.createElement('input');
+    this.input.style.display = 'block';
+    this.input.style.margin = '20px auto';
+    
+    this.textContainer.appendChild(this.input);
+    this.ok = document.createElement('span');
+    this.ok.textContent = 'OK';
+    this.ok.style.position = 'relative';
+    this.ok.style.cursor = 'pointer';
+    this.ok.style.float = 'left';
+
+    this.no = document.createElement('span');
+    this.no.textContent = 'NO';
+    this.no.style.cursor = 'pointer';
+    this.no.style.float = 'right';
+    this.no.style.clear = 'right';
+    this.textContainer.appendChild(this.ok);
+    this.textContainer.appendChild(this.no);
+}      
+ModalInput.prototype = Object.create(Modal.prototype);
+ModalInput.prototype.getVal = function(){
+    return this.input.value;    
+};
+ModalInput.prototype.clearInput = function(){
+    this.input.value = '';
+    this.input.focus();
+};
+ModalInput.prototype.addCallbacks = function(y_call, n_call){
+    this.ok.onclick = y_call;
+    this.no.onclick = n_call;
+};
+ModalInput.prototype.timeoutKill = function(second){
+    return setTimeout(this.kill.bind(this), second*1000);
+};
+
+
+ModalInput.prototype.show = function(){
+    document.body.appendChild(this.root);
+    this.input.focus();
+    this.input.select();
+};
+
+function ModalQuestion(){
+    ModalInput.call(this);
+    this.textContainer.removeChild(this.input);
+}
+ModalQuestion.prototype = Object.create(ModalInput.prototype);
+
+
