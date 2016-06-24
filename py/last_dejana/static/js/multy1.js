@@ -7,7 +7,11 @@ function isTaken(bool, n){
         myName = n;
         showUsers();
     }else {
-        alert('Nickname taken!\nTry another nickname!');
+        //@test new modal
+        var mInfo = new ModalInfo();
+        mInfo.show();
+        mInfo.setMsg('Nickname taken!\nTry another nickname!');
+        //alert('Nickname taken!\nTry another nickname!');
     }
 }
 
@@ -22,7 +26,6 @@ function showUsers(){
 }
 
 function socket_setup(){
-    //@test
     counter_0 = 0;
 
     socket.on('users', function(data){
@@ -49,32 +52,43 @@ function socket_setup(){
     });
     socket.on('cRequest', function(user){
         if (!isPlaying){
-            //@
-
-            var answ = confirm('Do you accept challange from '+user+'?');
-            if (answ){
+            //@here New Modal
+            question = new ModalQuestion();
+            question.show();
+            question.setMsg('Do you accept challange from '+user+'?');
+            function y(){
                 socket.emit('startGame', user);
+                question.kill();
             }
-
-            else {
+            function n(){
                 socket.emit('Reject', {'me':myName, 'him':user});
+                question.kill();
             }
+            question.addCallbacks(y,n);
+            
         }else {
             socket.emit('Busy', {'me':myName,'him':user});
         }
     });
     socket.on('RInfo', function(data){
-        alert(data);
+        //@here
+        //Modal info
+        //alert(data);
+        var m = new ModalInfo();
+        m.setMsg(data);
+        m.show();
     });
     socket.on('Info', function(data){
-        alert(data);
+        var m = new ModalInfo();
+        m.setMsg(data);
+        m.show();
+        //alert(data);
     });
 
     socket.on('Start', function(){
         isPlaying = true;
         createWorld();
         img_close.onclick = multiClose;
-        //@test
         opponent = document.getElementById('opponent');
         opCtx = opponent.getContext('2d');
         tmp_img = new Image();
@@ -85,10 +99,7 @@ function socket_setup(){
     socket.on('addRow', function(){
         addRow();
     });
-    //@counter_0 = 0;
 
-
-    //@test draw preview
     socket.on('OGameData', function(data){
         drawOpponent(data);
     });

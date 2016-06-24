@@ -218,6 +218,7 @@ function ModalInput(){
     Modal.call(this);
     this.msg.textContent = 'Enter name';
     this.input  = document.createElement('input');
+    //this.input.id = 'in_nickname'
     this.input.style.display = 'block';
     this.input.style.margin = '20px auto';
     
@@ -265,3 +266,12 @@ function ModalQuestion(){
 ModalQuestion.prototype = Object.create(ModalInput.prototype);
 
 
+function ModalInfo(){
+    Modal.call(this);
+    this.okButton = document.createElement('span');
+    this.okButton.onclick = this.kill.bind(this);
+    this.msg.style.marginBottom = '30px';
+    this.okButton.innerHTML = 'OK';
+    this.textContainer.appendChild(this.okButton);
+}
+ModalInfo.prototype = Object.create(Modal.prototype);
