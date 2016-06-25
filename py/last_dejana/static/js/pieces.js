@@ -275,3 +275,6 @@ function ModalInfo(){
     this.textContainer.appendChild(this.okButton);
 }
 ModalInfo.prototype = Object.create(Modal.prototype);
+ModalInfo.prototype.removeButton = function(){
+    this.okButton.parentNode.removeChild(this.okButton);  
+};

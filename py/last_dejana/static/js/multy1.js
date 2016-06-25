@@ -44,6 +44,24 @@ function socket_setup(){
             if (myName != data[i]){
                 temp_p.onclick = function(){
                     socket.emit('challenge', this.innerHTML);
+                    var opp0 = this.innerHTML;
+                    //@here modalInfo countdown
+                    Counter = new ModalInfo();
+                    Counter.removeButton();
+                    Counter.setMsg('Waiting for 10 second for '+opp0+' to accept');  
+                    Counter.show();
+                    var c0 = 10;
+                    intervalId = setInterval(function(){
+                        if (c0 <= 1){
+                            Counter.kill();
+                            clearInterval(intervalId);
+                            c0=9;
+                        }
+                        else{
+                            c0--;
+                            Counter.setMsg('Waiting for '+c0+' seconds for '+ opp0+' to accept');    
+                        }    
+                    },1000);
                 };
             }
             inst_div.appendChild(temp_p);
@@ -53,24 +71,38 @@ function socket_setup(){
     socket.on('cRequest', function(user){
         if (!isPlaying){
             //@here New Modal
+            //isPlaying = true;
             question = new ModalQuestion();
             question.show();
             question.setMsg('Do you accept challange from '+user+'?');
+        
             function y(){
                 socket.emit('startGame', user);
+                clearTimeout(qId); 
                 question.kill();
             }
             function n(){
                 socket.emit('Reject', {'me':myName, 'him':user});
+                clearTimeout(qId); 
                 question.kill();
             }
             question.addCallbacks(y,n);
-            
+            //@here
+            qId = setTimeout(function(){
+                clearTimeout(qId); 
+                socket.emit('Reject', {'me':myName, 'him':user});
+                question.kill();
+            },8000);    
+        
         }else {
             socket.emit('Busy', {'me':myName,'him':user});
         }
     });
     socket.on('RInfo', function(data){
+        if (typeof Counter !== 'undefined'){
+            clearInterval(intervalId);
+            Counter.kill();
+        }
         //@here
         //Modal info
         //alert(data);
@@ -86,6 +118,10 @@ function socket_setup(){
     });
 
     socket.on('Start', function(){
+        if (typeof Counter !== 'undefined'){
+            clearInterval(intervalId);
+            Counter.kill();
+        }
         isPlaying = true;
         createWorld();
         //@here
