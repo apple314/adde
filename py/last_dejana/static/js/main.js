@@ -418,7 +418,7 @@ function update(){
             if (counter_0 == 15){
                 emitGameData(gamec.toDataURL());
                 counter_0 = 0;
-            }else {
+            }else {host:
                 counter_0++;
             }
         }
