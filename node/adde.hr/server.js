@@ -7,6 +7,10 @@ var pairs = [];
 
 //makni iz pairsa i users na disconect ili over
 io.on('connection', function(socket){
+    //@here
+    console.log('User keys: '+Object.keys(users));
+    console.log('Pairs: '+pairs);
+    
     socket.on('newUser', function(data, callback){
         console.log('User '+ data + ' joined');
         if (data in users) {
@@ -45,6 +49,8 @@ io.on('connection', function(socket){
         for (var i =0; i<pairs.length; i++){
             console.log('Pairs playing: ' + pairs[i]);
         }
+        //@
+        console.log(Object.keys(users));
     });
     
     socket.on('Busy', function(data){
@@ -72,6 +78,7 @@ io.on('connection', function(socket){
         if (opponent && users[opponent]) {
             //@test volatile to impruve iceveasel support...
             users[opponent].volatile.emit('OGameData', data);
+            //console.log('image form ' + socket.nickname);
         }
     });
 });

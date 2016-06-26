@@ -264,7 +264,12 @@ function ModalQuestion(){
     this.textContainer.removeChild(this.input);
 }
 ModalQuestion.prototype = Object.create(ModalInput.prototype);
-
+//@here
+ModalQuestion.prototype.kill = function(){
+    console.log('ModalQuestion kill no this root');
+    console.log(this.root);
+    this.root.parentNode.removeChild(this.root);
+};
 
 function ModalInfo(){
     Modal.call(this);

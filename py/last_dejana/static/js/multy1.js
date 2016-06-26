@@ -43,25 +43,25 @@ function socket_setup(){
             temp_p.innerHTML = data[i];
             if (myName != data[i]){
                 temp_p.onclick = function(){
-                    socket.emit('challenge', this.innerHTML);
                     var opp0 = this.innerHTML;
+                    socket.emit('challenge', opp0);
                     //@here modalInfo countdown
                     Counter = new ModalInfo();
                     Counter.removeButton();
-                    Counter.setMsg('Waiting for 10 second for '+opp0+' to accept');  
+                    Counter.setMsg('Waiting for '+opp0+' to accept');  
                     Counter.show();
-                    var c0 = 10;
-                    intervalId = setInterval(function(){
-                        if (c0 <= 1){
-                            Counter.kill();
-                            clearInterval(intervalId);
-                            c0=9;
-                        }
-                        else{
-                            c0--;
-                            Counter.setMsg('Waiting for '+c0+' seconds for '+ opp0+' to accept');    
-                        }    
-                    },1000);
+                    //var c0 = 10;
+                    //intervalId = setInterval(function(){
+                    //    if (c0 <= 1){
+                    //        Counter.kill();
+                    //        clearInterval(intervalId);
+                    //        c0=9;
+                    //    }
+                    //    else{
+                    //        c0--;
+                    //        Counter.setMsg('Waiting for '+c0+' seconds for '+ opp0+' to accept');    
+                    //    }    
+                    //},1000);
                 };
             }
             inst_div.appendChild(temp_p);
@@ -76,23 +76,24 @@ function socket_setup(){
             question.show();
             question.setMsg('Do you accept challange from '+user+'?');
         
-            function y(){
-                socket.emit('startGame', user);
-                clearTimeout(qId); 
-                question.kill();
-            }
-            function n(){
-                socket.emit('Reject', {'me':myName, 'him':user});
-                clearTimeout(qId); 
-                question.kill();
-            }
-            question.addCallbacks(y,n);
-            //@here
             qId = setTimeout(function(){
                 clearTimeout(qId); 
+                question.kill.call(question);
                 socket.emit('Reject', {'me':myName, 'him':user});
+                
+            },8000);
+            
+            function y(){
+                clearTimeout(qId);
                 question.kill();
-            },8000);    
+                socket.emit('startGame', user);
+            }
+            function n(){
+                clearTimeout(qId); 
+                question.kill();
+                socket.emit('Reject', {'me':myName, 'him':user});
+            }
+            question.addCallbacks(y,n);    
         
         }else {
             socket.emit('Busy', {'me':myName,'him':user});
@@ -100,12 +101,9 @@ function socket_setup(){
     });
     socket.on('RInfo', function(data){
         if (typeof Counter !== 'undefined'){
-            clearInterval(intervalId);
+            //clearInterval(intervalId);
             Counter.kill();
         }
-        //@here
-        //Modal info
-        //alert(data);
         var m = new ModalInfo();
         m.setMsg(data);
         m.show();
@@ -114,22 +112,27 @@ function socket_setup(){
         var m = new ModalInfo();
         m.setMsg(data);
         m.show();
-        //alert(data);
     });
 
     socket.on('Start', function(){
-        if (typeof Counter !== 'undefined'){
-            clearInterval(intervalId);
-            Counter.kill();
+        
+        if (typeof Counter !== 'undefined' && Counter.root !== null ){
+            try {
+             Counter.kill();
+            }
+            catch(e){
+                //console.log(e.message);
+            }
         }
+        
         isPlaying = true;
         createWorld();
         //@here
-        //img_close.onclick = multiClose;
         opponent = document.getElementById('opponent');
         opCtx = opponent.getContext('2d');
         tmp_img = new Image();
     });
+    
 
     socket.emit('getUsers');
 
