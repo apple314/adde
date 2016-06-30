@@ -32,7 +32,8 @@ io.on('connection', function(socket){
     
     socket.on('disconnect', function(){
         delete users[socket.nickname];
-        //console.log(popPair(pairs,socket.nickname));
+        //@
+        console.log(popPair(pairs,socket.nickname));
         io.emit('users', Object.keys(users));
         console.log('Bye bye from: '+socket.id+' disconnect');   
     });
