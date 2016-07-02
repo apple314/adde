@@ -429,6 +429,7 @@ function update(){
 	else {
 		//score on/off
 		//@here score
+        //@1
         //s_ctx.font = "20px Helvetica serif";
         //s_ctx.fillText("Score: "+curLines, 0,128);
         //@

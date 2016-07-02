@@ -3,11 +3,83 @@
 <html>
 <head>
     <title>Page Title</title>
+    
 </head>
 
 <body>
 
+    <button id='start'>click me</button>
+    <ul id='list'></ul>
+    <script>
+        (function(){
+            var data = {
+                lastId: 0,
+                pizzas: []
+            };
+            
+            var view = {
+                init: function(){
+                    var sButton = document.getElementById('start');
+                    this.sList = document.getElementById('list');
+                    sButton.onclick = function(){
+                        controler.addPizza();  
+                    };
+                    this.render();
+                },
+                render: function(){
+                    console.log(controler.getPizzas());
+                    var toRender = controler.getPizzas();
+                    this.sList.innerHTML = '';
+                    for (var i=0;i<toRender.length;i++){
+                        var tModel = new Model(this.sList);
+                        tModel.setId(toRender[i].id);
+                        tModel.setMsg('I am ' + tModel.id);
+                        tModel.clickHandler(function(){
+                            controler.removePizza(tModel.id);
+                            //alert(tModel.id);    
+                        });
+                    }
+                }
+            };
+            
+            var controler = {
+                addPizza: function(){
+                    var thisId = ++data.lastId;
+                    data.pizzas.push({
+                        id: thisId,
+                        visible: true
+                    });
+                    view.render();
+                },
+                getPizzas: function(){
+                    var t = data.pizzas.filter(function(p){
+                        return p.visible;
+                    });
+                    return t;
+                },
+                removePizza: function(p_id){
+                    data.pizzas.pop(p_id);
+                    view.render();
+                }
+            };
+            
+            function Model(el){
+                this.p = document.createElement('p');
+                this.setMsg = function(msg){
+                    this.p.innerHTML = msg;
+                    this.p.style.display = 'inline';
+                    el.appendChild(this.p);
+                };
+                this.setId = function(id){
+                    this.id = id;
+                };
+                this.clickHandler = function(n){
+                    this.p.onclick = n;
+                };
+            }
 
-
+            view.init();
+        })();
+    </script>
 </body>
 </html>

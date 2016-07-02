@@ -1,7 +1,7 @@
 //must make when game ends to do socket.disconetct and return to show users
 
 isPlaying = false;
-
+socket_url ='http://192.168.1.65:8888';
 function isTaken(bool, n){
     if (bool){
         myName = n;
@@ -17,8 +17,8 @@ function isTaken(bool, n){
 
 function showUsers(){
     inst_div.innerHTML = '';
-    var text = document.createElement('p');
-    text.innerHTML = 'Users list:';
+    var text = document.createElement('h3');
+    text.innerHTML = 'Users list';
     inst_div.appendChild(text);
     inst_div.focus();
     socket_setup();
@@ -34,8 +34,8 @@ function socket_setup(){
         img_close.onclick = multiClose;
 
         inst_div.appendChild(img_close);
-        var text = document.createElement('p');
-        text.innerHTML = 'Users list:';
+        var text = document.createElement('h3');
+        text.innerHTML = 'Users list';
         inst_div.appendChild(text);
 
         for(var i=0; i<data.length;i++){
@@ -50,18 +50,10 @@ function socket_setup(){
                     Counter.removeButton();
                     Counter.setMsg('Waiting for '+opp0+' to accept');  
                     Counter.show();
-                    //var c0 = 10;
-                    //intervalId = setInterval(function(){
-                    //    if (c0 <= 1){
-                    //        Counter.kill();
-                    //        clearInterval(intervalId);
-                    //        c0=9;
-                    //    }
-                    //    else{
-                    //        c0--;
-                    //        Counter.setMsg('Waiting for '+c0+' seconds for '+ opp0+' to accept');    
-                    //    }    
-                    //},1000);
+                    //@last
+                    counter_Id = setTimeout(function(){
+                        Counter.kill(); 
+                    }, 7000);
                 };
             }
             inst_div.appendChild(temp_p);
@@ -100,6 +92,8 @@ function socket_setup(){
         }
     });
     socket.on('RInfo', function(data){
+        //@last
+        clearTimeout(counter_Id);
         if (typeof Counter !== 'undefined'){
             //clearInterval(intervalId);
             Counter.kill();
@@ -109,6 +103,8 @@ function socket_setup(){
         m.show();
     });
     socket.on('Info', function(data){
+        //@last remove modal
+        Counter.kill();
         var m = new ModalInfo();
         m.setMsg(data);
         m.show();
@@ -186,7 +182,7 @@ function showLobby(){
             nickname = mInput.getVal();
             if (nickname){
             //@local testing
-            socket = io.connect('http://192.168.1.64:8888');
+            socket = io.connect(socket_url);
             socket.emit('newUser', nickname, isTaken);
             mInput.kill();
             }
@@ -205,7 +201,7 @@ function showLobby(){
             nickname = mInput.getVal();
             if (nickname){
             //@local testing
-            socket = io.connect('http://192.168.1.64:8888');
+            socket = io.connect(socket_url);
             socket.emit('newUser', nickname, isTaken);
             mInput.kill();
             }
@@ -247,3 +243,4 @@ function emitGameData(gData){
         socket.emit('gameData', gData);
     }
 }
+
