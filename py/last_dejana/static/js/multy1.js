@@ -1,7 +1,7 @@
 //must make when game ends to do socket.disconetct and return to show users
 
 isPlaying = false;
-socket_url ='http://192.168.1.65:8888';
+socket_url ='http://188.129.39.195:8888';
 function isTaken(bool, n){
     if (bool){
         myName = n;

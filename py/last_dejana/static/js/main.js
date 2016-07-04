@@ -73,23 +73,18 @@ function calculateInstWin(){
     if (ww>wh){
         t.style.width = (wh*ratio-55)+'px';
         t.style.height = (t.getBoundingClientRect().width/ratio - 10) +'px';
-        //dims = t.getBoundingClientRect();
     }
     else {
-        //console.log('wh>ww');
         t.style.width = '85%';
         t.style.height = (t.getBoundingClientRect().width/ratio - 10)+'px';
     }
-
 }
 
 function createWorld(){
-    //clear tap, click
     var intro_div = document.getElementById('gameStart');
     intro_div.removeEventListener('click', createWorld);
     intro_div.removeEventListener('tap', createWorld);
     intro_div.parentNode.removeChild(intro_div);
-	//* disable game start button
 	document.getElementsByTagName('button')[0].disabled = true;
 
     var wrapper, nextpiece, gamecanvas;
@@ -99,12 +94,10 @@ function createWorld(){
     nextpiece.id = 'nextPiece';
     gamec = document.createElement('canvas');
     gamec.id = 'gameCanvas';
-    //@previev canvas
 
     var opponent = document.createElement('canvas');
     opponent.id = 'opponent';
 
-    //exit on game
     img_close.onclick = gameOverClear;
     wrapper.appendChild(img_close);
 
@@ -430,8 +423,8 @@ function update(){
 		//score on/off
 		//@here score
         //@1
-        //s_ctx.font = "20px Helvetica serif";
-        //s_ctx.fillText("Score: "+curLines, 0,128);
+        s_ctx.font = "20px Helvetica serif";
+        s_ctx.fillText("Score: "+curLines, 0,128);
         //@
         window.cancelAnimationFrame(rId);
         console.log(curLines);
