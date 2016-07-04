@@ -46,8 +46,8 @@ function showInstuctions(){
     if (isMobile()){
         inst_div_text.style.bottom = '0px';
         inst_div_text.innerHTML = 'Double-tap: rotate</br>Swipe-left: move left</br>Swipe-right: move right</br>Swipe-down: move down</br></br><span id="play">Singleplayer</span><div id="mplay"><span>Multiplayer</span></div>';
-        img_close.style.width = '48px';
-        img_close.style.height = '48px';
+        img_close.style.width = '25px';
+        img_close.style.height = '25px';
         var play = document.getElementById('play');
         play.addEventListener('touchstart', createWorld);
         var mplay = document.getElementById('mplay');
